@@ -1,14 +1,13 @@
 import { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
-import Select from 'react-select'
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Plus, Filter, Edit, Trash, User, Eye, Search, X, Calendar, DollarSign, FileText, Tag, Send, Printer } from 'lucide-react';
+import { Plus, Trash, Search, X, Send, Printer } from 'lucide-react';
 import { Sidebar } from '../../components/Sidebar';
-import { Settings, Bell } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import { LuFileSpreadsheet, LuPrinter } from "react-icons/lu";
 import { FaFilePdf } from "react-icons/fa6";
 
@@ -16,7 +15,7 @@ import { FaFilePdf } from "react-icons/fa6";
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { useReactToPrint } from 'react-to-print';
-import ReceiptGenerator from '../reports/RecieptGenerator';
+// import ReceiptGenerator from '../reports/RecieptGenerator';
 
 interface Invoice {
 	id: number;
@@ -31,7 +30,7 @@ interface Invoice {
 export function Invoice() {
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
-	const [filterOpen, setFilterOpen] = useState(false);
+	const [filterOpen] = useState(false);
 	const [transactionOpen, setTransactionOpen] = useState(false)
 
 	const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -47,15 +46,15 @@ export function Invoice() {
 	});
 
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
-	const [transactionToDelete, setTransactionToDelete] = useState(null);
-	const [transactionDetails, setTransactionDetails] = useState(null);
+	const [transactionToDelete, ] = useState(null);
+	const [transactionDetails, ] = useState(null);
 	const [showDetailsModal, setShowDetailsModal] = useState(false)
 
 	const [isVisible, setIsVisible] = useState(true)
-	const handleDeleteClick = (transactionId: string) => {
-		setTransactionToDelete(transactionId);
-		setShowDeleteModal(true);
-	};
+	// const handleDeleteClick = (transactionId: string) => {
+	// 	setTransactionToDelete(transactionId);
+	// 	setShowDeleteModal(true);
+	// };
 
 	const confirmDeleteTransaction = () => {
 		setInvoices(invoices.filter(t => t.id !== transactionToDelete));
@@ -64,10 +63,10 @@ export function Invoice() {
 	};
 
 	// handle transactions view
-	const handleViewDetailsClick = (ledger: typeof invoices[0]) => {
-		setTransactionDetails(ledger);
-		setShowDetailsModal(true);
-	};
+	// const handleViewDetailsClick = (ledger: typeof invoices[0]) => {
+	// 	setTransactionDetails(ledger);
+	// 	setShowDetailsModal(true);
+	// };
 
   // handle excel sheet export
   const handleExportToExcel = () => {
@@ -116,13 +115,13 @@ export function Invoice() {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-  });
+  })
 
 	const handleExport = () => {
 		toast.success('Export clicked!');
 	};
 
-	const [selectedReceipt, setSelectedReceipt] = useState<Transaction | null>(null);
+	// const [selectedReceipt, setSelectedReceipt] = useState<Transaction | null>(null);
 
 	return (
 		<div className="flex w-dvw h-full bg-blue-50 font-poppins">
@@ -162,7 +161,7 @@ export function Invoice() {
 								</div>
 								{isVisible && (<div className="flex gap-2">
 									<button onClick={() => {
-										handleAddInvoice
+										handleAddInvoice()
 										setTransactionOpen(!transactionOpen);
 										setIsVisible(!isVisible)
 										}} className="bg-blue-500 text-white px-2 rounded flex items-center text-xs">
