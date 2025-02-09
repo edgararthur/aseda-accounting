@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Select from 'react-select'
@@ -162,8 +163,22 @@ export function Payables() {
 									<div>
 										<label className="block text-xs font-medium text-gray-700">Date Range</label>
 										<div className="flex gap-2">
-											<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="Start Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
-											<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} placeholderText="End Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
+										<DatePicker
+												selected={startDate}
+												onChange={(date) => setStartDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="border p-2 rounded bg-transparent outline-none text-xs"
+												
+											/>
+											<DatePicker
+												selected={endDate}
+												onChange={(date) => setEndDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="border p-2 rounded bg-transparent outline-none text-xs"
+												
+											/>
 										</div>
 									</div>
 									<div>
@@ -320,7 +335,8 @@ export function Payables() {
 								  <label className="block text-xs font-medium text-gray-700 mb-1">Date</label>
 								  <DatePicker
 									selected={startDate}
-									onChange={(date) => setStartDate(date)}
+									onChange={(date) => setStartDate(date as unknown as Date)}
+									selectsMultiple={true}
 									placeholderText="Select Date"
 									className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
 								  />

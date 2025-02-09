@@ -1,6 +1,6 @@
 import React from 'react';
 import { FileText, MoreVertical, AlertCircle } from 'lucide-react';
-import type { Invoice } from '../types';
+import type { Invoice } from '../../types';
 
 interface Props {
   invoices: Invoice[];

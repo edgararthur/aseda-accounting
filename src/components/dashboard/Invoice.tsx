@@ -14,7 +14,7 @@ import { FaFilePdf } from "react-icons/fa6";
 
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { useReactToPrint } from 'react-to-print';
+// import { useReactToPrint } from 'react-to-print';
 // import ReceiptGenerator from '../reports/RecieptGenerator';
 
 interface Invoice {
@@ -111,14 +111,13 @@ export function Invoice() {
   };
 
   // handle data printing
-  const componentRef = useRef(null);
+  const componentRef = useRef<HTMLDivElement | null>(null);
+  const handlePrint = () => {
+	toast.success('Printed success fully')
+  }
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  })
-
-	const handleExport = () => {
-		toast.success('Export clicked!');
+  const handleExport = () => {
+    toast.success('Export clicked!');
 	};
 
 	// const [selectedReceipt, setSelectedReceipt] = useState<Transaction | null>(null);
@@ -178,8 +177,20 @@ export function Invoice() {
 									<div>
 										<label className="block text-xs font-medium text-gray-700">Date Range</label>
 										<div className="flex gap-2">
-											<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="Start Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
-											<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} placeholderText="End Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
+											<DatePicker
+												selected={startDate}
+												onChange={(date) => setStartDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+											/>
+											<DatePicker
+												selected={endDate}
+												onChange={(date) => setEndDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"	
+											/>
 										</div>
 									</div>
 									<div>

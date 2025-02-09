@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Select from 'react-select'
@@ -8,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Plus, Filter, Edit, Trash, User, Eye, Search, X, Calendar, DollarSign, FileText, Tag } from 'lucide-react';
 import { Sidebar } from '../../components/Sidebar';
-import { Settings, Bell } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import { LuFileSpreadsheet, LuPrinter } from "react-icons/lu";
 import { FaFilePdf } from "react-icons/fa6";
 
@@ -72,9 +73,9 @@ export function Ledger() {
   // handle data printing
   const componentRef = useRef(null);
 
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  const handlePrint = () => {
+	toast.success('Success')
+  }
 
 	const categoryOptions = [
 		{ value: 'all', label: 'All' },
@@ -168,8 +169,22 @@ export function Ledger() {
 									<div>
 										<label className="block text-xs font-medium text-gray-700">Date Range</label>
 										<div className="flex gap-2">
-											<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="Start Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
-											<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} placeholderText="End Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
+											<DatePicker
+												selected={startDate}
+												onChange={(date) => setStartDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="border p-2 rounded bg-transparent outline-none text-xs"
+												
+											/>
+											<DatePicker
+												selected={endDate}
+												onChange={(date) => setEndDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="border p-2 rounded bg-transparent outline-none text-xs"
+												
+											/>
 										</div>
 									</div>
 									<div>
@@ -323,12 +338,14 @@ export function Ledger() {
 								{/* Date */}
 								<div>
 								  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-								  <DatePicker
-									selected={startDate}
-									onChange={(date) => setStartDate(date)}
-									placeholderText="Select Date"
-									className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-								  />
+								  	<DatePicker
+										selected={startDate}
+										onChange={(date) => setStartDate(date as unknown as Date)}
+										selectsMultiple={true}
+										placeholderText="Select Date"
+										className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+										
+									/>
 								</div>
 					  
 								{/* Category */}

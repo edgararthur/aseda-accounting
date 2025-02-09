@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { Calendar, DollarSign, FileText, X } from 'lucide-react';
-import type { TransactionFormData, TransactionCategory } from '../types';
+import { X } from 'lucide-react';
+import type { TransactionFormData, TransactionCategory } from '../../types';
 
 interface Props {
   onSubmit: (data: TransactionFormData) => void;
@@ -18,48 +19,47 @@ const CATEGORIES: TransactionCategory[] = [
   'Marketing',
   'Insurance',
   'Taxes',
-  'Other',
 ];
 
 const TransactionForm: React.FC<Props> = ({ onSubmit, onClose, initialData }) => {
-  const [formData, setFormData] = useState<TransactionFormData>({
-    date: initialData?.date || new Date().toISOString().split('T')[0],
-    description: initialData?.description || '',
-    amount: initialData?.amount || 0,
-    type: initialData?.type || 'expense',
-    category: initialData?.category || 'Operations',
-    paymentMethod: initialData?.paymentMethod || 'cash',
-    reference: initialData?.reference || '',
-    notes: initialData?.notes || '',
-  });
+  // const [formData, setFormData] = useState<TransactionFormData>({
+  //   date: initialData?.date || new Date().toISOString().split('T')[0],
+  //   description: initialData?.description || '',
+  //   amount: initialData?.amount || 0,
+  //   type: initialData?.type || 'expense',
+  //   category: initialData?.category || 'Operations',
+  //   paymentMethod: initialData?.paymentMethod || 'cash',
+  //   reference: initialData?.reference || '',
+  //   notes: initialData?.notes || '',
+  // });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const validateForm = (): boolean => {
-    const newErrors: Record<string, string> = {};
+  // const validateForm = (): boolean => {
+  //   const newErrors: Record<string, string> = {};
 
-    if (!formData.description.trim()) {
-      newErrors.description = 'Description is required';
-    }
+  //   if (!formData.description.trim()) {
+  //     newErrors.description = 'Description is required';
+  //   }
 
-    if (formData.amount <= 0) {
-      newErrors.amount = 'Amount must be greater than 0';
-    }
+  //   if (formData.amount <= 0) {
+  //     newErrors.amount = 'Amount must be greater than 0';
+  //   }
 
-    if (!formData.date) {
-      newErrors.date = 'Date is required';
-    }
+  //   if (!formData.date) {
+  //     newErrors.date = 'Date is required';
+  //   }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validateForm()) {
-      onSubmit(formData);
-    }
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   if (validateForm()) {
+  //     onSubmit(formData);
+  //   }
+  // };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

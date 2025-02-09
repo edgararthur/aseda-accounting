@@ -1,9 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import {FileText, Users, LogOut, Percent, BadgeCent, ArrowRightLeft, Settings, Database, LayoutDashboard, WalletCards, ChevronDown, ChevronUp, BookOpen, CreditCard, Banknote, FileSearch, PieChart, Calendar, Shield, Archive, Globe, Landmark, Clock, FileBarChart, FileSpreadsheet, FileInput, FileOutput, Receipt, Building, Tag, FilePlus, FileCheck, FileX } from 'lucide-react';
-import { FaHandHoldingDollar } from "react-icons/fa6";
-import { GiExpense } from "react-icons/gi";
-import { FaFileInvoiceDollar } from "react-icons/fa";
-import { MdInventory } from "react-icons/md";
+import {FileText, LogOut, Percent, BadgeCent, ArrowRightLeft, Database, LayoutDashboard, WalletCards, ChevronDown, ChevronUp, BookOpen, PieChart,FileSpreadsheet, FileInput, Receipt } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const menuCategories = [
@@ -103,7 +99,7 @@ export function Sidebar() {
     }
   }, [location.pathname]);
 
-  const toggleCategory = (title) => {
+  const toggleCategory = (title: string) => {
     setOpenCategories((prev) => ({
       ...prev,
       [title]: !prev[title],

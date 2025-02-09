@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import {
   useReactTable,
@@ -10,7 +11,7 @@ import {
   type ColumnDef,
 } from '@tanstack/react-table';
 import { Download, Printer, Search } from 'lucide-react';
-import { exportToExcel, exportToPDF, printTable } from '../utils/export';
+import { printTable } from '../utils/export';
 
 interface DataTableProps<T> {
   data: T[];
@@ -19,6 +20,8 @@ interface DataTableProps<T> {
   onAdd?: () => void;
   onEdit?: (row: T) => void;
   onDelete?: (row: T) => void;
+  handleExportExcel?: (data: T[]) => void; // Add this line
+  handleExportPDF?: (data: T[], columns: ColumnDef<T, any>[]) => void;
 }
 
 export default function DataTable<T>({
@@ -28,6 +31,8 @@ export default function DataTable<T>({
   onAdd,
   onEdit,
   onDelete,
+  handleExportExcel, // Add this line
+  handleExportPDF,
 }: DataTableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -63,20 +68,24 @@ export default function DataTable<T>({
                 className="pl-9 pr-4 py-2 border bg-transparent outlin-none border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:border-transparent focus:border-none"
               />
             </div>
-            <button
-              onClick={() => exportToExcel(data, title)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
-            >
-              <Download className="h-4 w-4" />
-              <span>Excel</span>
-            </button>
-            <button
-              onClick={() => exportToPDF(data, columns, title)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
-            >
-              <Download className="h-4 w-4" />
-              <span>PDF</span>
-            </button>
+            {handleExportExcel && (
+              <button
+                onClick={() => handleExportExcel(data)}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+              >
+                <Download className="h-4 w-4" />
+                <span>Excel</span>
+              </button>
+            )}
+            {handleExportPDF && (
+              <button
+                onClick={() => handleExportPDF(data, columns)}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+              >
+                <Download className="h-4 w-4" />
+                <span>PDF</span>
+              </button>
+            )}
             <button
               onClick={() => printTable(data, columns, title)}
               className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"

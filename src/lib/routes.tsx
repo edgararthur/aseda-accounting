@@ -8,7 +8,6 @@ import { Tax } from '@/components/tax/Tax';
 import { Reports } from '@/components/reports/Reports';
 import { Banking } from '@/components/banking/Banking';
 import { Settings } from '@/components/settings/Settings';
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createColumnHelper } from '@tanstack/react-table';
-import DataTable from './DataTable';
-import type { Invoice } from '../types';
+import DataTable from './../layout/DataTable';
+import type { Invoice } from '../../types';
 
 const columnHelper = createColumnHelper<Invoice>();
 

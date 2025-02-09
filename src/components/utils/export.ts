@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { utils, writeFile } from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -10,7 +11,7 @@ export function exportToExcel<T>(data: T[], title: string) {
   writeFile(workbook, `${title}.xlsx`);
 }
 
-export function exportToPDF<T>(data: T[], columns: ColumnDef<T, any>[], title: string) {
+export function exportToPDF<T>(data: T[], columns: ColumnDef<T, unknown>[], fileName: string, title: string) {
     const doc = new jsPDF();
     
     // Add title

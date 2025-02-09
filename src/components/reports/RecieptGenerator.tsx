@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { Printer, Download, X } from 'lucide-react';
 import type { Transaction } from '../../types/index';
-import exportToPDF from '../utils/export';
+// import exportToPDF from '../utils/export';
 import jsPDF from 'jspdf';
 
 interface Props {

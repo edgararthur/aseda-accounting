@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Select from 'react-select'
-import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Plus, Filter, Edit, Trash, Eye, Search, X } from 'lucide-react';
+import { Plus, Filter, Edit, Trash, Eye, Search } from 'lucide-react';
 import { Sidebar } from '../../components/Sidebar';
-import { Settings, Bell } from 'lucide-react';
+import { Bell } from 'lucide-react';
 import { LuFileSpreadsheet, LuPrinter } from "react-icons/lu";
 import { FaFilePdf } from "react-icons/fa6";
+import DatePicker from 'react-datepicker';
 
 export function FinancialOverview() {
 	const [startDate, setStartDate] = useState<Date | null>(null);
 	const [endDate, setEndDate] = useState<Date | null>(null);
 	const [filterOpen, setFilterOpen] = useState(false);
 	const [transactionOpen, setTransactionOpen] = useState(false)
+	const [isVisible, setIsVisible] = useState(false)
+
 
 	const [transactions, setTransactions] = useState([
 		{ id: '1',date: '2023-10-01', description: 'Office Rent', category: 'Rent', type: 'Expense', amount: 1200, payment_method: 'Bank Transfer', status: 'Completed' },
@@ -31,7 +33,6 @@ export function FinancialOverview() {
 	const [transactionDetails, setTransactionDetails] = useState(null);
 	const [showDetailsModal, setShowDetailsModal] = useState(false)
 
-	const [isVisible, setIsVisible] = useState(true)
 	const handleDeleteClick = (transactionId: string) => {
 		setTransactionToDelete(transactionId);
 		setShowDeleteModal(true);
@@ -133,8 +134,22 @@ export function FinancialOverview() {
 									<div>
 										<label className="block text-xs font-medium text-gray-700">Date Range</label>
 										<div className="flex gap-2">
-											<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} placeholderText="Start Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
-											<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} placeholderText="End Date" className="border p-2 rounded bg-transparent outline-none text-xs" />
+											<DatePicker
+												selected={startDate}
+												onChange={(date) => setStartDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+												
+											/>
+											<DatePicker
+												selected={endDate}
+												onChange={(date) => setEndDate(date as unknown as Date)}
+												selectsMultiple={true}
+												placeholderText="Select Date"
+												className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+												
+											/>
 										</div>
 									</div>
 									<div>
@@ -291,9 +306,11 @@ export function FinancialOverview() {
 								  <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
 								  <DatePicker
 									selected={startDate}
-									onChange={(date) => setStartDate(date)}
+									onChange={(date) => setStartDate(date as unknown as Date)}
+									selectsMultiple={true}
 									placeholderText="Select Date"
 									className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm text-xs bg-white focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+									
 								  />
 								</div>
 					  
@@ -382,7 +399,7 @@ export function FinancialOverview() {
 										</tr>
 									</thead>
 									<tbody>
-										{transactions.map((transaction, index) => (
+										{transactions.map((transaction) => (
 											<tr key={transaction.id} className='cursor-pointer text-center text-gray-500 text-xs font-normal'>
 												<td className='py-2 px-4 border-b'>#{transaction.id}</td>
 												<td className="py-2 px-4 border-b">{transaction.date}</td>
